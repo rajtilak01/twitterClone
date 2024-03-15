@@ -1,9 +1,11 @@
 import React from "react"
-import { Inter } from "next/font/google";
-import {BsBell, BsBookmark, BsEnvelope, BsTwitter} from 'react-icons/bs'
-import {BiHash, BiHome, BiMessage, BiNotification, BiUser} from "react-icons/bi"
 
-const inter = Inter({ subsets: ["latin"] });
+import {BsBell, BsBookmark, BsEnvelope, BsTwitter, BsTwitterX} from 'react-icons/bs'
+import {BiHash, BiHome, BiMessage, BiNotification, BiUser} from "react-icons/bi"
+import FeedCard from "@/components/FeedCard";
+import { SlOptions } from "react-icons/sl";
+
+
 
 interface TwitterSidebarButton{
   title: string,
@@ -28,28 +30,32 @@ const sideMenuItems: TwitterSidebarButton[] = [
     icon: <BsEnvelope/>
   },
   {
+    title: "Premium",
+    icon: <BsTwitterX/>
+  },
+  {
     title: "Bookmarks",
     icon: <BsBookmark/>
   },
   {
-    title: "Profile",
-    icon: <BiUser/>
+    title: "More Options",
+    icon: <SlOptions/>
   },
 ]
 export default function Home() {
   return (
-    <div className={inter.className}>
+    <div>
       <div className="grid grid-cols-12 h-screen w-screen px-56">
-        <div className="col-span-3 pt-8">
-          <div  className="text-4xl h-fit hover:bg-gray-800 rounded-full p-2 cursor-pointer transition-all">
+        <div className="col-span-3 pt-1 mo-8">
+          <div  className="text-2xl h-fit hover:bg-gray-800 rounded-full p-2 cursor-pointer transition-all">
           <BsTwitter/>
           </div>
-          <div className="pt-2 text-2xl pr-4">
+          <div className="mt-1 text-xl pr-4">
             <ul>
               {sideMenuItems.map((item) => (
-                <li className="flex justify-start items-center gap-4 hover:bg-gray-800 rounded-full px-5 py-2 w-fit cursor-pointer mt-2"
+                <li className="flex justify-start items-center gap-4 hover:bg-gray-800 rounded-full px-3 py-3 w-fit cursor-pointer mt-2"
                 key={item.title}>
-                  <span>{item.icon}</span>
+                  <span className="text-3xl">{item.icon}</span>
                   <span>{item.title}</span>
                 </li>
               ))}
@@ -62,7 +68,19 @@ export default function Home() {
            
           </div>
         </div>
-        <div className="col-span-6 border-l-[0.4px] border-r-[0.4px] border-grey-500"></div>
+        <div className="col-span-6 border-l-[0.4px] border-r-[0.4px] border-gray-600 h-screen">
+          <div className="feed-container">
+          <FeedCard/>
+          <FeedCard/>
+          <FeedCard/>
+          <FeedCard/>
+          <FeedCard/>
+          <FeedCard/>
+          <FeedCard/>
+          <FeedCard/>
+          <FeedCard/>
+          </div>
+        </div>
         <div className="col-span-3"></div>
       </div>
     </div>
