@@ -1,7 +1,7 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
-    "firstname" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
     "lastName" TEXT,
     "email" TEXT NOT NULL,
     "profileImageURL" TEXT,
