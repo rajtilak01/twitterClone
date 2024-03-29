@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import {
   BsBell,
@@ -16,7 +16,10 @@ import {
 } from "react-icons/bi";
 import FeedCard from "@/components/FeedCard";
 import { SlOptions } from "react-icons/sl";
-import { GoogleLogin } from "@react-oauth/google";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import toast from "react-hot-toast";
+import { graphQLClient } from "@/clients/api";
+import { verifyUserGoogleTokenQuery } from "@/graphql/query/user";
 
 interface TwitterSidebarButton {
   title: string;
@@ -54,6 +57,16 @@ const sideMenuItems: TwitterSidebarButton[] = [
   },
 ];
 export default function Home() {
+
+  const handleLoginWithGoogle = useCallback(async (cred: CredentialResponse) => {
+    const googleToken = cred.credential;
+    if(!googleToken) return toast.error(`Google Token not found`);
+
+    const { verifyGoogleToken } = await graphQLClient.request(verifyUserGoogleTokenQuery, {token: googleToken})
+
+    toast.success("Verified Success");
+    console.log(verifyGoogleToken);
+  }, [])
   return (
     <div>
       <div className="grid grid-cols-12 h-screen w-screen px-56">
@@ -96,7 +109,7 @@ export default function Home() {
         <div className="col-span-3 p-5">
           <div className="p-5 bg-slate-700 rounded-lg py-2">
             <h1 className="my- text-2xl">New to Twitter?</h1>
-            <GoogleLogin onSuccess={(cred) => console.log(cred)} />
+            <GoogleLogin onSuccess={handleLoginWithGoogle} />
           </div>
         </div>
       </div>
