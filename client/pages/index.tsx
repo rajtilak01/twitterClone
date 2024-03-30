@@ -66,6 +66,10 @@ export default function Home() {
 
     toast.success("Verified Success");
     console.log(verifyGoogleToken);
+
+    if(verifyGoogleToken){
+      window.localStorage.setItem('__twitter_token', verifyGoogleToken);
+    }
   }, [])
   return (
     <div>
